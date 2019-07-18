@@ -70,7 +70,7 @@ func echarts(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "参数错误")
 		return
 	}
-	pageurl = "http://localhost:8080/echarts/?" + params.Encode()
+	pageurl = "http://localhost:80/echarts/?" + params.Encode()
 	if len(query["rander_wait_time"]) > 0 {
 		randerWaitTime, _ = strconv.ParseInt(query["rander_wait_time"][0], 10, 64)
 	}
