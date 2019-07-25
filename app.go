@@ -104,7 +104,7 @@ func draw(url string, element string, quality int64, randerWaitTime int64, w htt
 
 	if element == "" {
 		if quality == 0 {
-			quality = 90
+			quality = 100
 		}
 		if err := chromedp.Run(ctx, fullScreenshot(url, quality, randerWaitTime, &buf)); err != nil {
 			fmt.Fprint(w, err)
