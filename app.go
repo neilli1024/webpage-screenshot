@@ -9,19 +9,37 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"strconv"
 	"time"
 )
 
+func writeHTML(html string, w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, html)
+}
+
 func webpage(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
-	var url, element string
+	var url, element, html string
 	var quality, randerWaitTime = int64(90), int64(0)
+	r.ParseForm()
+
+	query := r.URL.Query()
+	if len(query["html"]) > 0 {
+		html = query["html"][0]
+	} else if len(r.PostFormValue("html")) > 0 {
+		html = r.PostFormValue("html")
+	}
 	if len(query["url"]) > 0 {
 		url = query["url"][0]
+	} else if len(html) > 0 {
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintln(w, html)
+		}))
+		defer ts.Close()
+		url = ts.URL
 	} else {
-		fmt.Fprint(w, "参数错误")
+		fmt.Fprint(w, "缺少参数url或html")
 		return
 	}
 	if len(query["quality"]) > 0 {
@@ -169,8 +187,8 @@ func main() {
 
 	http.HandleFunc("/echarts/image", echarts)
 	http.HandleFunc("/webpage/image", webpage)
-	fmt.Println("Server is at localhost:80")
-	if err := http.ListenAndServe(":80", nil); err != nil {
+	fmt.Println("Server is at localhost:8082")
+	if err := http.ListenAndServe(":8082", nil); err != nil {
 		log.Fatal(err)
 	}
 }

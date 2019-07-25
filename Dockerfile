@@ -1,5 +1,5 @@
 FROM golang
-LABEL maintainer="daoying007 <daoying007@gmail.com>"
+LABEL maintainer="jessezhang007007 <jessezhang007007@gmail.com>"
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list \
@@ -13,5 +13,5 @@ WORKDIR /go/src/app
 
 ADD app.go ./
 RUN go build app.go
-EXPOSE 8080
+EXPOSE 8082
 CMD ["/go/src/app/app"]
