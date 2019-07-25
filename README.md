@@ -17,7 +17,7 @@ Docker Hub 地址：https://hub.docker.com/r/jessezhang007007/webpage-screenshot
 ### 方式一：使用Docker运行
 
 ```
-docker run -d -p 80:8082 --name webpage-screenshot --restart=always jessezhang007007/webpage-screenshot
+docker run -d -p 8082:8082 --name webpage-screenshot --restart=always jessezhang007007/webpage-screenshot
 ```
 
 
