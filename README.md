@@ -32,14 +32,14 @@ go run app.go
 ### 1. 传入url方式访问网页，使用GET方式访问：
 
 ```
-http://localhost:8082/webpage/image?url=https%3A%2F%2Fwww.baidu.com
+http://localhost:8082/webpage/?url=https%3A%2F%2Fwww.baidu.com
 ```
 
 ### 2. 直接传入html内容渲染，使用POST方式访问：
 
 ```
 curl -X POST \
-  http://localhost:8082/webpage/image \
+  http://localhost:8082/webpage/ \
   -o webpage-image.png \
   -d html=%3Chtml%3E%3Cbody%3E%E8%BF%99%E6%98%AFhtml%E5%86%85%E5%AE%B9%3C%2Fbody%3E%3C%2Fhtml%3E
 ```
